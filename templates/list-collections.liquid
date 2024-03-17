@@ -1,0 +1,17 @@
+<section>
+  <div class="container">
+    <h2 class="font-medium text-2xl">All Collections List ({{ shop.collections_count }})</h2>
+
+    <div class="mt-10">
+      <div class="grid grid-cols-4 gap-5">
+        {% for collection in collections %}
+        <div>
+          <img src="{{ collection.featured_image | img_url: width:400 }}" alt="">
+          <p>{{ collection.description }}</p>
+          {{- collection.title | link_to: collection.url }} - ({{ collection.products_count }})
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

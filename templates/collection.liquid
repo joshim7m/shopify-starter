@@ -1,0 +1,23 @@
+<!-- Individual collection, find from the collection's search engine listing -->
+<!-- http://127.0.0.1:9292/collections/frontpage -->
+<!-- http://127.0.0.1:9292/collections/cloths -->
+
+{% paginate collection.products by 12 %}
+  <h1 class="font-medium text-2xl">{{ collection.title }} - ({{ collection.all_products_count }})</h1>
+  <div class="mt-10 grid grid-cols-6 gap-5">
+    {% for product in collection.products %}
+    <div class="mt-10">
+        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+      <h2>{{ product.title | link_to: product.url }}</h2>
+      {{ product.price | money }}
+      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+
+    </div>
+  {% else %}
+    <p>no matches</p>
+  {% endfor %}
+  </div>
+  {% if paginate.pages > 1 %}
+    {{ paginate | default_pagination }}
+  {% endif %}
+{% endpaginate %}
